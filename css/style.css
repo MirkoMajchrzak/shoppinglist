@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    cursor: pointer;
+}
+
+.deleteButton {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+/* Default (light) theme */
+body {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode input,
+body.dark-mode button {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+body.dark-mode ul li {
+    background-color: #1e1e1e;
+}
+
+#toggleDarkMode {
+    margin-bottom: 10px;
+    cursor: pointer;
+}

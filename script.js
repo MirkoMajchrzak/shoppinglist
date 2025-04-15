@@ -9,23 +9,23 @@ let items = JSON.parse(localStorage.getItem('items')) || [];
 function renderItems() {
   itemList.innerHTML = '';
 
-  items.forEach((item, index) => {
+  items.forEach((item) => {
     const li = document.createElement('li');
+    li.dataset.id = item.id;
 
     const grip = document.createElement('span');
     grip.className = 'drag-handle';
     grip.textContent = '☰';
 
     const span = document.createElement('span');
-    span.textContent = item;
+    span.textContent = item.text;
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = '🗑️';
     deleteButton.className = 'deleteButton';
-    deleteButton.setAttribute('data-index', index);
 
     deleteButton.addEventListener('click', () => {
-      items.splice(index, 1);
+      items = items.filter(i => i.id !== item.id);
       saveItems();
       renderItems();
     });
@@ -46,7 +46,10 @@ function saveItems() {
 addButton.addEventListener('click', () => {
   const newItem = itemInput.value.trim();
   if (newItem) {
-    items.push(newItem);
+    items.push({
+      id: crypto.randomUUID(), // Eindeutige ID
+      text: newItem
+    });
     saveItems();
     renderItems();
   }
@@ -77,10 +80,8 @@ new Sortable(itemList, {
   ghostClass: 'sortable-ghost',
   chosenClass: 'sortable-chosen',
   onEnd: () => {
-    const newOrder = Array.from(itemList.children).map(li =>
-      li.querySelector('span').textContent.trim()
-    );
-    items = newOrder;
+    const newOrder = Array.from(itemList.children).map(li => li.dataset.id);
+    items = newOrder.map(id => items.find(item => item.id === id));
     saveItems();
   }
 });

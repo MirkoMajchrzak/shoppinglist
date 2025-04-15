@@ -66,6 +66,8 @@ new Sortable(itemList, {
     animation: 150,
     ghostClass: 'sortable-ghost',
     chosenClass: 'sortable-chosen',
+    delay: 200, // ⏱️ Wartezeit in ms
+    delayOnTouchOnly: true, // Nur auf Touchgeräten (Smartphones/Tablets)
     onEnd: () => {
       const newOrder = Array.from(itemList.children).map(li =>
         li.querySelector('span').textContent.trim()

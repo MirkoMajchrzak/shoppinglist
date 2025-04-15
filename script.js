@@ -92,3 +92,8 @@ if ('serviceWorker' in navigator) {
     .then(() => console.log('Service Worker registriert!'))
     .catch(error => console.error('Service Worker Fehler:', error));
 }
+
+// Seite ist geladen → Fading aktivieren
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });

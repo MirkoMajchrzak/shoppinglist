@@ -1,3 +1,12 @@
+body {
+    opacity: 0;
+    transition: opacity 0.6s ease-in;
+  }
+  
+  body.loaded {
+    opacity: 1;
+  }
+
 ul {
     padding: 5px
   }

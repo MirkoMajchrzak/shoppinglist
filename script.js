@@ -62,16 +62,18 @@ darkModeButton.addEventListener('click', () => {
 });
 
 // Drag & Drop mit SortableJS
-const sortable = new Sortable(itemList, {
-  animation: 150,
-  onEnd: () => {
-    const newOrder = Array.from(itemList.children).map(li =>
-      li.querySelector('span').textContent.trim()
-    );
-    items = newOrder;
-    saveItems();
-  }
-});
+new Sortable(itemList, {
+    animation: 150,
+    ghostClass: 'sortable-ghost',
+    chosenClass: 'sortable-chosen',
+    onEnd: () => {
+      const newOrder = Array.from(itemList.children).map(li =>
+        li.querySelector('span').textContent.trim()
+      );
+      items = newOrder;
+      saveItems();
+    }
+  });
 
 renderItems();
 

@@ -36,6 +36,16 @@ button {
     cursor: pointer;
 }
 
+.sortable-chosen {
+    background-color: #cce5ff !important;
+    opacity: 0.8;
+  }
+  
+  .sortable-ghost {
+    background-color: #f0f0f0;
+    border: 2px dashed #888;
+  }
+
 /* Default (light) theme */
 body {
     background-color: #ffffff;

@@ -12,6 +12,10 @@ function renderItems() {
   items.forEach((item, index) => {
     const li = document.createElement('li');
 
+    const grip = document.createElement('span');
+    grip.className = 'drag-handle';
+    grip.textContent = '☰';
+
     const span = document.createElement('span');
     span.textContent = item;
 
@@ -26,6 +30,7 @@ function renderItems() {
       renderItems();
     });
 
+    li.appendChild(grip);
     li.appendChild(span);
     li.appendChild(deleteButton);
     itemList.appendChild(li);
@@ -44,8 +49,8 @@ addButton.addEventListener('click', () => {
     items.push(newItem);
     saveItems();
     renderItems();
-    itemInput.value = '';
   }
+  itemInput.value = '';
 });
 
 // Dark Mode
@@ -61,23 +66,24 @@ darkModeButton.addEventListener('click', () => {
   darkModeButton.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
 });
 
-// Drag & Drop mit SortableJS
-new Sortable(itemList, {
-    animation: 150,
-    ghostClass: 'sortable-ghost',
-    chosenClass: 'sortable-chosen',
-    delay: 200, // ⏱️ Wartezeit in ms
-    delayOnTouchOnly: true, // Nur auf Touchgeräten (Smartphones/Tablets)
-    onEnd: () => {
-      const newOrder = Array.from(itemList.children).map(li =>
-        li.querySelector('span').textContent.trim()
-      );
-      items = newOrder;
-      saveItems();
-    }
-  });
-
+// Initiales Rendern + Sortable aktivieren
 renderItems();
+
+new Sortable(itemList, {
+  animation: 150,
+  handle: '.drag-handle',
+  delay: 200,
+  delayOnTouchOnly: true,
+  ghostClass: 'sortable-ghost',
+  chosenClass: 'sortable-chosen',
+  onEnd: () => {
+    const newOrder = Array.from(itemList.children).map(li =>
+      li.querySelector('span').textContent.trim()
+    );
+    items = newOrder;
+    saveItems();
+  }
+});
 
 // PWA Service Worker
 if ('serviceWorker' in navigator) {
